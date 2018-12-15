@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Runtime.InteropServices;
 
 namespace Inventory
@@ -14,8 +15,8 @@ namespace Inventory
             var vehicleList = new List<Vehicle>();
             var phoneList = new List<Phone>();
             var computerList = new List<Computer>();
-
-
+            var myPhone = new Phone(Guid.Parse("0f8fad5b-d9cb-469f-a165-70867728950e"), "a", new DateTime(1000, 07, 01), 6, 1000, "a","yes", "753489", new Tuple<string, string>("a", "a"));
+            phoneList.Add(myPhone);
             do
             {
                 Options();
@@ -136,6 +137,12 @@ namespace Inventory
 
                         break;
                     }
+
+                    case "7":
+                    {
+                        PrintAllPhonesWithCorrectExpirationYear(phoneList);
+                        break;
+                    }
                 }
 
 
@@ -151,6 +158,7 @@ namespace Inventory
             Console.WriteLine("4. Print all computers whose warranty expires in selected year");
             Console.WriteLine("5. Print how many pieces of technological equpipment have a battery");
             Console.WriteLine("6. Print all phones of a specific brand or all computers with a specific operating system");
+            Console.WriteLine("7. Print all phones whose warranty expires in selected year");
             Console.WriteLine("Exit - stop the program");
         }
 
@@ -365,7 +373,7 @@ namespace Inventory
             var ExpiratonYear = int.Parse(Console.ReadLine());
             foreach (var Computer in computerList)
             {
-                if ((Computer.DateOfPurchase.Year + ((Computer.DateOfPurchase.Month + Computer.MonthsOfWarranty)/12)) ==
+                if ((Computer.DateOfPurchase.Year + ((Computer.DateOfPurchase.Month + Computer.MonthsOfWarranty) / 12)) ==
                     ExpiratonYear)
                 {
                     Console.WriteLine($"Computer with the serial number {Computer.SerialNumber}'s warranty expires that year");
@@ -403,12 +411,63 @@ namespace Inventory
 
         static void PhoneManufacturerCheck(List<Phone> phoneList)
         {
-            Console.WriteLine("Enter the manufacturer");
-            var operatingSystem = (OperatingSystems)int.Parse(Console.ReadLine());
-            foreach (var Computer in computerList)
+            Console.WriteLine("Enter the brand");
+            var brand = Console.ReadLine();
+            brand = brand.ToLower();
+            foreach (var Computer in phoneList)
             {
-                if (Computer.OperatingSystem == operatingSystem) ;
-                Console.WriteLine($"Computer with the serial number {Computer.SerialNumber} has the selected operating system");
+                var manufacturer = Computer.Manufacturer;
+                if (manufacturer.ToLower() == brand)
+                {
+                    Console.WriteLine($"Phone with the serial number {Computer.SerialNumber} is made by the selected manufacturer");
+                }
+            }
+        }
+
+        static void PrintAllPhonesWithCorrectExpirationYear(List<Phone> phoneList)
+        {
+            Console.WriteLine("Enter expiration year");
+            var expiratonYear = int.Parse(Console.ReadLine());
+            foreach (var Phone in phoneList)
+            {
+                if ((Phone.DateOfPurchase.Year + ((Phone.DateOfPurchase.Month + Phone.MonthsOfWarranty) / 12)) ==
+                    expiratonYear)
+                {
+                    Console.WriteLine($"{Phone.Identity.Item1} {Phone.Identity.Item2}'s phone with the number {Phone.PhoneNumber} warranty expires in the selected year");
+                    var currentValue = CurrentValueCalculator(Phone.PurchasePrice, Phone.DateOfPurchase, expiratonYear);
+                    Console.WriteLine($"The phone was purchased at the price {Phone.PurchasePrice} and it's current value is {currentValue} the price lowered by {Phone.PurchasePrice-currentValue}");
+                }
+            }
+        }
+
+        static double CurrentValueCalculator(double purchasePrice, DateTime purchaseDateTime, int expirationYear)
+        {
+            if ((expirationYear * 12) - ((purchaseDateTime.Year*12)+purchaseDateTime.Month) >= 12)
+            {
+                return (purchasePrice * 0.3);
+            }
+            else if (((((purchaseDateTime.Year * 12) + purchaseDateTime.Month) - (expirationYear * 12)) * 0.05) >= 0.3)
+            {
+                return (purchasePrice * 0.3);
+            }
+            else if ((((expirationYear * 12) - ((purchaseDateTime.Year * 12) + purchaseDateTime.Month))*0.05) >= 0.3)
+            {
+                return (purchasePrice * 0.3);
+            }
+            else
+            {
+                if ((((purchaseDateTime.Year * 12) + purchaseDateTime.Month) - (expirationYear * 12)) > 0)
+                {
+                    return purchasePrice -
+                           (((((purchaseDateTime.Year * 12) + purchaseDateTime.Month) - (expirationYear * 12))) * 0.05 *
+                            purchasePrice);
+                }
+                else
+                {
+                    return purchasePrice -
+                           ((((expirationYear * 12)-((purchaseDateTime.Year * 12) + purchaseDateTime.Month))) * 0.05 *
+                            purchasePrice);
+                }
             }
         }
     }

@@ -13,9 +13,9 @@ namespace Inventory
         public DateTime DateOfPurchase { get; set; }
         public int MonthsOfWarranty { get; set; }
         public double PurchasePrice { get; set; }
-        public Manufacturers Manufacturer { get; set; }
+        public string Manufacturer { get; set; }
 
-        public Inventory(Guid serialNumber, string description, DateTime dateOfPurchase, int monthsOfWarranty, double purchasePrice, Manufacturers manufacturer)
+        public Inventory(Guid serialNumber, string description, DateTime dateOfPurchase, int monthsOfWarranty, double purchasePrice, string manufacturer)
         {
             SerialNumber = serialNumber;
             Description = description;

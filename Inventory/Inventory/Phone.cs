@@ -9,7 +9,7 @@ namespace Inventory
         public int PhoneNumber { get; set; }
         public Tuple<string, string> Identity { get; set; }
 
-        public Phone(Guid serialNumber, string description, DateTime dateOfPurchase, int monthsOfWarranty, double purchasePrice, Manufacturers manufacturer, string hasBattery, string phoneNumber, Tuple<string, string> identity)
+        public Phone(Guid serialNumber, string description, DateTime dateOfPurchase, int monthsOfWarranty, double purchasePrice, string manufacturer, string hasBattery, string phoneNumber, Tuple<string, string> identity)
             :base(serialNumber, description, dateOfPurchase, monthsOfWarranty, purchasePrice, manufacturer, hasBattery)
         {
             PhoneNumber = int.Parse(phoneNumber.Replace(" ", ""));
