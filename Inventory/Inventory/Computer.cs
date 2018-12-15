@@ -9,7 +9,7 @@ namespace Inventory
         public OperatingSystems OperatingSystem { get; set; }
         public bool IsComputerPortable { get; set; }
 
-        public Computer(Guid serialNumber, string description, DateTime dateOfPurchase, int monthsOfWarranty, double purchasePrice, string manufacturer, string hasBattery, OperatingSystems operatingSystem, string isComputerPortable)
+        public Computer(Guid serialNumber, string description, DateTime dateOfPurchase, int monthsOfWarranty, double purchasePrice, Manufacturers manufacturer, string hasBattery, OperatingSystems operatingSystem, string isComputerPortable)
             :base(serialNumber, description, dateOfPurchase, monthsOfWarranty, purchasePrice, manufacturer, hasBattery)
         {
             OperatingSystem = operatingSystem;

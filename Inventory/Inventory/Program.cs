@@ -112,7 +112,28 @@ namespace Inventory
 
                     case "5":
                     {
-                        BatteryAmount(List<Phone>, List<Computer>);
+                        BatteryAmount(phoneList, computerList);
+                        break;
+                    }
+
+                    case "6":
+                    {
+                        var item = Console.ReadLine();
+                        switch (item)
+                        {
+                            case "computer":
+                            {
+                                ComputerOperatingSystemCheck(computerList);
+                                break;
+                            }
+
+                            case "phone":
+                            {
+                                PhoneManufacturerCheck(phoneList);
+                                break;
+                            }
+                        }
+
                         break;
                     }
                 }
@@ -129,7 +150,7 @@ namespace Inventory
             Console.WriteLine("3. Print all details of an inventory piece");
             Console.WriteLine("4. Print all computers whose warranty expires in selected year");
             Console.WriteLine("5. Print how many pieces of technological equpipment have a battery");
-            Console.WriteLine("6. Print all computers whose warranty expires in selected year");
+            Console.WriteLine("6. Print all phones of a specific brand or all computers with a specific operating system");
             Console.WriteLine("Exit - stop the program");
         }
 
@@ -367,6 +388,28 @@ namespace Inventory
             }
 
             Console.WriteLine($"{numberOfBatteries} pieces of technological equipment have a battery");
+        }
+
+        static void ComputerOperatingSystemCheck(List<Computer> computerList)
+        {
+            Console.WriteLine("Enter the operating system");
+            var operatingSystem = (OperatingSystems) int.Parse(Console.ReadLine());
+            foreach (var Computer in computerList)
+            {
+                if(Computer.OperatingSystem == operatingSystem);
+                    Console.WriteLine($"Computer with the serial number {Computer.SerialNumber} has the selected operating system");
+            }
+        }
+
+        static void PhoneManufacturerCheck(List<Phone> phoneList)
+        {
+            Console.WriteLine("Enter the manufacturer");
+            var operatingSystem = (OperatingSystems)int.Parse(Console.ReadLine());
+            foreach (var Computer in computerList)
+            {
+                if (Computer.OperatingSystem == operatingSystem) ;
+                Console.WriteLine($"Computer with the serial number {Computer.SerialNumber} has the selected operating system");
+            }
         }
     }
 }
