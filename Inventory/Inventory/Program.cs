@@ -110,7 +110,11 @@ namespace Inventory
                         break;
                     }
 
-
+                    case "5":
+                    {
+                        BatteryAmount(List<Phone>, List<Computer>);
+                        break;
+                    }
                 }
 
 
@@ -348,6 +352,21 @@ namespace Inventory
             }
         }
 
+        static void BatteryAmount(List<Phone> phoneList, List<Computer> computerList)
+        {
+            var numberOfBatteries = 0;
+            foreach (var Phone in phoneList)
+            {
+                if (Phone.HasBattery)
+                    numberOfBatteries += 1;
+            }
+            foreach (var Computer in computerList)
+            {
+                if (Computer.HasBattery)
+                    numberOfBatteries += 1;
+            }
 
+            Console.WriteLine($"{numberOfBatteries} pieces of technological equipment have a battery");
+        }
     }
 }
