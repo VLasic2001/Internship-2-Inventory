@@ -8,7 +8,7 @@ namespace Inventory
     {
         static void Main(string[] args)
         {
-            //Googla san i stvarno nisan nasa kako choice inicijalizirati u petlji
+
             var choice = "";
 
             var vehicleList = new List<Vehicle>();
@@ -42,6 +42,32 @@ namespace Inventory
                             case "vehicle":
                             {
                                 vehicleList = AddVehicle(vehicleList);
+                                break;
+                            }
+                        }
+                        break;
+                    }
+
+                    case "2":
+                    {
+                        var item = Console.ReadLine();
+                        switch (item)
+                        {
+                            case "computer":
+                            {
+                                computerList = DeleteComputer(computerList);
+                                break;
+                            }
+
+                            case "phone":
+                            {
+                                phoneList = DeletePhone(phoneList);
+                                break;
+                            }
+
+                            case "vehicle":
+                            {
+                                vehicleList = DeleteVehicle(vehicleList);
                                 break;
                             }
                         }
@@ -161,6 +187,39 @@ namespace Inventory
             var kilometersDriven = double.Parse(Console.ReadLine());
             var newComputer = new Vehicle(serialNumber, description, dateOfPurchase, monthsOfWarranty, purchasePrice, manufacturer, licencePlateExpiryDate, kilometersDriven);
             vehicleList.Add(newComputer);
+            return vehicleList;
+        }
+
+        static List<Computer> DeleteComputer(List<Computer> computerList)
+        {
+            foreach (var Computer in computerList)
+            {
+                Console.WriteLine("Enter serial number of computer you want to delete from inventory");
+                if (Computer.SerialNumber == Guid.Parse(Console.ReadLine()))
+                    computerList.Remove(Computer);
+            }
+            return computerList;
+        }
+
+        static List<Phone> DeletePhone(List<Phone> phoneList)
+        {
+            foreach (var Phone in phoneList)
+            {
+                Console.WriteLine("Enter serial number of phone you want to delete from inventory");
+                if (Phone.SerialNumber == Guid.Parse(Console.ReadLine()))
+                    phoneList.Remove(Phone);
+            }
+            return phoneList;
+        }
+
+        static List<Vehicle> DeleteVehicle(List<Vehicle> vehicleList)
+        {
+            foreach (var Vehicle in vehicleList)
+            {
+                Console.WriteLine("Enter serial number of vehicle you want to delete from inventory");
+                if (Vehicle.SerialNumber == Guid.Parse(Console.ReadLine()))
+                    vehicleList.Remove(Vehicle);
+            }
             return vehicleList;
         }
     }
