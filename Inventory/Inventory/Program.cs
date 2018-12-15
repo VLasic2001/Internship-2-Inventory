@@ -103,6 +103,14 @@ namespace Inventory
 
                         break;
                     }
+
+                    case "4":
+                    {
+                        PrintComputersWithCorrectExpirationYear(computerList);
+                        break;
+                    }
+
+
                 }
 
 
@@ -115,7 +123,9 @@ namespace Inventory
             Console.WriteLine("1. Add an item to inventory.");
             Console.WriteLine("2. Delete an item from inventory.");
             Console.WriteLine("3. Print all details of an inventory piece");
-            Console.WriteLine("4. ");
+            Console.WriteLine("4. Print all computers whose warranty expires in selected year");
+            Console.WriteLine("5. Print how many pieces of technological equpipment have a battery");
+            Console.WriteLine("6. Print all computers whose warranty expires in selected year");
             Console.WriteLine("Exit - stop the program");
         }
 
@@ -132,7 +142,7 @@ namespace Inventory
             Console.WriteLine("Enter day of purchase");
             var dayOfPurchase = int.Parse(Console.ReadLine());
             var dateOfPurchase = new DateTime(yearOfPurchase, monthOfPurchase, dayOfPurchase);
-            Console.WriteLine("Enter number of months of warranty left");
+            Console.WriteLine("Enter number of months of warranty");
             var monthsOfWarranty = int.Parse(Console.ReadLine());
             Console.WriteLine("Enter price at time of purchase");
             var purchasePrice = double.Parse(Console.ReadLine());
@@ -166,7 +176,7 @@ namespace Inventory
             Console.WriteLine("Enter day of purchase");
             var dayOfPurchase = int.Parse(Console.ReadLine());
             var dateOfPurchase = new DateTime(yearOfPurchase, monthOfPurchase, dayOfPurchase);
-            Console.WriteLine("Enter number of months of warranty left");
+            Console.WriteLine("Enter number of months of warranty");
             var monthsOfWarranty = int.Parse(Console.ReadLine());
             Console.WriteLine("Enter price at time of purchase");
             var purchasePrice = double.Parse(Console.ReadLine());
@@ -201,7 +211,7 @@ namespace Inventory
             Console.WriteLine("Enter day of purchase");
             var dayOfPurchase = int.Parse(Console.ReadLine());
             var dateOfPurchase = new DateTime(yearOfPurchase, monthOfPurchase, dayOfPurchase);
-            Console.WriteLine("Enter number of months of warranty left");
+            Console.WriteLine("Enter number of months of warranty");
             var monthsOfWarranty = int.Parse(Console.ReadLine());
             Console.WriteLine("Enter price at time of purchase");
             var purchasePrice = double.Parse(Console.ReadLine());
@@ -323,5 +333,21 @@ namespace Inventory
                 }
             }
         }
+
+        static void PrintComputersWithCorrectExpirationYear(List<Computer> computerList)
+        {
+            Console.WriteLine("Enter expiration year");
+            var ExpiratonYear = int.Parse(Console.ReadLine());
+            foreach (var Computer in computerList)
+            {
+                if ((Computer.DateOfPurchase.Year + ((Computer.DateOfPurchase.Month + Computer.MonthsOfWarranty)/12)) ==
+                    ExpiratonYear)
+                {
+                    Console.WriteLine($"Computer with the serial number {Computer.SerialNumber}'s warranty expires that year");
+                }
+            }
+        }
+
+
     }
 }
