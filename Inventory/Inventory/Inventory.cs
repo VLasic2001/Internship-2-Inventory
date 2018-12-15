@@ -8,18 +8,20 @@ namespace Inventory
 {
     public class Inventory
     {
-        public int SerialNumber { get; set; }
+        public Guid SerialNumber { get; set; }
         public string Description { get; set; }
         public DateTime DateOfPurchase { get; set; }
         public int MonthsOfWarranty { get; set; }
+        public double PurchasePrice { get; set; }
         public string Manufacturer { get; set; }
 
-        public Inventory(int serialNumber, string description, DateTime dateOfPurchase, int monthsOfWarranty, string manufacturer)
+        public Inventory(Guid serialNumber, string description, DateTime dateOfPurchase, int monthsOfWarranty, double purchasePrice, string manufacturer)
         {
             SerialNumber = serialNumber;
             Description = description;
             DateOfPurchase = dateOfPurchase;
             MonthsOfWarranty = monthsOfWarranty;
+            PurchasePrice = purchasePrice;
             Manufacturer = manufacturer;
         }
     }

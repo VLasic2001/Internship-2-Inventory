@@ -8,8 +8,8 @@ namespace Inventory
     {
         public bool HasBattery { get; set; }
 
-        public TechnologicalEquipment(int serialNumber, string description, DateTime dateOfPurchase, int monthsOfWarranty, string manufacturer, string hasBattery)
-            : base(serialNumber, description, dateOfPurchase, monthsOfWarranty, manufacturer)
+        public TechnologicalEquipment(Guid serialNumber, string description, DateTime dateOfPurchase, int monthsOfWarranty, double purchasePrice, string manufacturer, string hasBattery)
+            : base(serialNumber, description, dateOfPurchase, monthsOfWarranty, purchasePrice, manufacturer)
         {
             HasBattery = BatteryCheck(hasBattery);
         }

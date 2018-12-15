@@ -6,11 +6,11 @@ namespace Inventory
 {
     public class Computer : TechnologicalEquipment
     {
-        public OperatingSystem OperatingSystem { get; set; }
+        public OperatingSystems OperatingSystem { get; set; }
         public bool IsComputerPortable { get; set; }
 
-        public Computer(int serialNumber, string description, DateTime dateOfPurchase, int monthsOfWarranty, string manufacturer, string hasBattery, OperatingSystem operatingSystem, string isComputerPortable)
-            :base(serialNumber, description, dateOfPurchase, monthsOfWarranty, manufacturer, hasBattery)
+        public Computer(Guid serialNumber, string description, DateTime dateOfPurchase, int monthsOfWarranty, double purchasePrice, string manufacturer, string hasBattery, OperatingSystems operatingSystem, string isComputerPortable)
+            :base(serialNumber, description, dateOfPurchase, monthsOfWarranty, purchasePrice, manufacturer, hasBattery)
         {
             OperatingSystem = operatingSystem;
             IsComputerPortable = PortabilityCheck(isComputerPortable);
