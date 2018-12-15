@@ -15,6 +15,8 @@ namespace Inventory
             var vehicleList = new List<Vehicle>();
             var phoneList = new List<Phone>();
             var computerList = new List<Computer>();
+            var myVehicle = new Vehicle(Guid.Parse("0f8fad5b-d9cb-469f-a165-70867728950e"), "a", new DateTime(1000, 07, 01), 6, 1000, "a", new DateTime(2019, 01, 02), 100000);
+            vehicleList.Add(myVehicle);
             var myPhone = new Phone(Guid.Parse("0f8fad5b-d9cb-469f-a165-70867728950e"), "a", new DateTime(1000, 07, 01), 6, 1000, "a","yes", "753489", new Tuple<string, string>("a", "a"));
             phoneList.Add(myPhone);
             do
@@ -143,6 +145,12 @@ namespace Inventory
                         PrintAllPhonesWithCorrectExpirationYear(phoneList);
                         break;
                     }
+
+                    case "8":
+                    {
+                        PrintAllVehiclesWithExpiryInNextMonth(vehicleList);
+                        break;
+                    }
                 }
 
 
@@ -159,6 +167,7 @@ namespace Inventory
             Console.WriteLine("5. Print how many pieces of technological equpipment have a battery");
             Console.WriteLine("6. Print all phones of a specific brand or all computers with a specific operating system");
             Console.WriteLine("7. Print all phones whose warranty expires in selected year");
+            Console.WriteLine("8. Print all vehicles whose warranty expires in the following month");
             Console.WriteLine("Exit - stop the program");
         }
 
@@ -435,7 +444,7 @@ namespace Inventory
                 {
                     Console.WriteLine($"{Phone.Identity.Item1} {Phone.Identity.Item2}'s phone with the number {Phone.PhoneNumber} warranty expires in the selected year");
                     var currentValue = CurrentValueCalculator(Phone.PurchasePrice, Phone.DateOfPurchase, expiratonYear);
-                    Console.WriteLine($"The phone was purchased at the price {Phone.PurchasePrice} and it's current value is {currentValue} the price lowered by {Phone.PurchasePrice-currentValue}");
+                    Console.WriteLine($"The phone was purchased at the price {Phone.PurchasePrice} and it's current value is {currentValue}, the price lowered by {Phone.PurchasePrice-currentValue}");
                 }
             }
         }
@@ -467,6 +476,27 @@ namespace Inventory
                     return purchasePrice -
                            ((((expirationYear * 12)-((purchaseDateTime.Year * 12) + purchaseDateTime.Month))) * 0.05 *
                             purchasePrice);
+                }
+            }
+        }
+
+        static void PrintAllVehiclesWithExpiryInNextMonth(List<Vehicle> vehicleList)
+        {
+            foreach (var Vehicle in vehicleList)
+            {
+                var timeDiff = DateTime.Now - Vehicle.DateOfPurchase;
+                var kilometersDriven = Vehicle.KilometersDriven;
+                var currentValue = Vehicle.PurchasePrice;
+                if ((timeDiff.Milliseconds* 1.15741e-8) <= 30)
+                {
+                    Console.WriteLine($"Vehicle with the serial number {Vehicle.SerialNumber}'s warranty expires in the next month");
+                    while (kilometersDriven >= 20000 && currentValue >= (Vehicle.PurchasePrice * 0.3))
+                    {
+                        currentValue = currentValue - Vehicle.PurchasePrice * 0.1;
+                        kilometersDriven -= 20000;
+                    }
+
+                    Console.WriteLine($"The vehicle was purchased at the price {Vehicle.PurchasePrice} and it's current value is {currentValue}, the price lowered by {Vehicle.PurchasePrice-currentValue}");
                 }
             }
         }
